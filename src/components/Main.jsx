@@ -70,7 +70,6 @@ function Main(props) {
             />
           ))}
         </Map>
-
         {
             activePortal && (
               <Portal getHTMLElementId="driver-2">
@@ -78,6 +77,7 @@ function Main(props) {
               </Portal>
             )
           }
+
       </div>
     </YMaps>
   );
