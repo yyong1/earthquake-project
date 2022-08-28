@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
-import { Map, Placemark, YMaps } from 'react-yandex-maps';
+import {
+  Circle, Map, YMaps,
+} from 'react-yandex-maps';
 
 function Details(props) {
   const { id } = useParams();
@@ -14,23 +15,37 @@ function Details(props) {
         setDetailState(data);
       });
   }, []);
-  if (!detailState[0].id.length) return null;
-  console.log('xxx', detailState);
+  if (!detailState[0]?.id.length) return null;
+
   return (
     <div>
       <YMaps className="map-container" version="2.1.79">
         <div>
           <h1>Подробности о землетрясении</h1>
-          <Map style={{ width: '700px', height: '700px' }} defaultState={{ center: [detailState[0].latitude, detailState[0].longitude], zoom: 2 }} modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}>
-
-            <Placemark
-              key={detailState[0].id}
-              geometry={{
-                type: 'Circle',
-                coordinates: [[detailState[0].latitude, detailState[0].latitude], 1000],
+          <Map style={{ width: '700px', height: '700px' }} defaultState={{ center: [detailState[0].latitude, detailState[0].longitude], zoom: 6 }} modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}>
+            <Circle
+              geometry={
+                [[detailState[0].latitude, detailState[0].longitude],
+                  +detailState[0].magnitude * 33000]
+                }
+            />
+            <Circle
+              geometry={
+                [[detailState[0].latitude, detailState[0].longitude],
+                  +detailState[0].magnitude * 3300]
+                }
+              options={{
+                fillColor: 'FF0000FF',
               }}
-            //   key={detailState.id}
-            //   geometry={[detailState[0].latitude, detailState[0].longitude]}
+            />
+            {/* <Placemark
+            //   key={detailState[0].id}
+            //   geometry={{
+            //     type: 'Circle',
+            //     coordinates: [[detailState[0].latitude, detailState[0].latitude], 1000],
+            //   }}
+              key={detailState[0].id}
+              geometry={[detailState[0].latitude, detailState[0].longitude]}
               options={
                   {
                     preset: 'islands#circleIcon', // список темплейтов на сайте яндекса
@@ -45,7 +60,7 @@ function Details(props) {
                     balloonContent: `<div id="earthqueke-deth" class="earthqueke"><span>Глубина землетрясения - ${detailState.depth}</span></div>`,
                   }
                 }
-            />
+            /> */}
 
           </Map>
         </div>
