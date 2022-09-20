@@ -26,6 +26,12 @@ function Details(props) {
             <Circle
               geometry={
                 [[detailState[0].latitude, detailState[0].longitude],
+                  +detailState[0].magnitude * 330000]
+                }
+            />
+            <Circle
+              geometry={
+                [[detailState[0].latitude, detailState[0].longitude],
                   +detailState[0].magnitude * 33000]
                 }
             />
@@ -38,30 +44,6 @@ function Details(props) {
                 fillColor: 'FF0000FF',
               }}
             />
-            {/* <Placemark
-            //   key={detailState[0].id}
-            //   geometry={{
-            //     type: 'Circle',
-            //     coordinates: [[detailState[0].latitude, detailState[0].latitude], 1000],
-            //   }}
-              key={detailState[0].id}
-              geometry={[detailState[0].latitude, detailState[0].longitude]}
-              options={
-                  {
-                    preset: 'islands#circleIcon', // список темплейтов на сайте яндекса
-                    // iconColor: genRC(), // цвет иконки, можно также задавать в hex
-                  }
-                }
-              properties={
-                  {
-                    iconContent: detailState.magnitude, // пару символов помещается
-                    hintContent: `<b>${detailState.location}</b>`,
-                    // создаём пустой элемент с заданными размерами
-                    balloonContent: `<div id="earthqueke-deth" class="earthqueke"><span>Глубина землетрясения - ${detailState.depth}</span></div>`,
-                  }
-                }
-            /> */}
-
           </Map>
         </div>
       </YMaps>
